@@ -1,43 +1,47 @@
-import React, {useState} from "react";
+import React, {useState} from 'react';
+import './index.css'
 import Header from "./Header";
-import Footer from "./Footer";
 import CreateNote from "./CreateNote";
 import Note from "./Note";
-
+import Footer from "./Footer";
 
 const Appp = () => {
-
     const [addItem, setAddItem] = useState([]);
 
-    const addNote = (note) => {
-        alert('click');
-        setAddItem((oldData) => {
-            return [...oldData, note]
-        });
-        // console.log(note)
+    const addNote = (addTitle) => {
+        // alert('clicked')
+        setAddItem((prevData) => {
+            return [...prevData, addTitle]
+        })
+        // console.log(addTitle);
+    }
+
+    const onDelete = (id) => {
+        setAddItem((olddata)=>
+        olddata.filter((currdata , indx)=>{
+            return indx !== id;
+        })
+        )
     }
 
     return (
         <>
-
-
             <Header/>
             <CreateNote passNote={addNote}/>
-            {/*<Note/>*/}
-            {addItem.map((val, index) => {
+
+            {addItem.map((value, index) => {
                 return <Note
                     key={index}
                     id={index}
-                    title={val.title}
-                    content={val.content}
+                    title={value.title}
+                    content={value.content}
+                    deleteItem={onDelete}
                 />
             })}
 
             <Footer/>
-
-
         </>
     )
-};
+}
 
 export default Appp;

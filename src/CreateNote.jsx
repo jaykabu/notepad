@@ -1,64 +1,78 @@
-import React, {useState} from "react";
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 
-
 const CreateNote = (props) => {
 
-    const [note, setNote] = useState({
+    const [expand, setExpand] = useState(false)
+
+    const [addTitle, setAddTitle] = useState({
         title: '',
         content: ''
     });
 
     const inputEvent = (event) => {
 
-        const {value, name} = event.target
+        const {name, value} = event.target
 
-        setNote((olddata) => {
+        setAddTitle((preValue) => {
             return {
-                ...olddata,
+                ...preValue,
                 [name]: value
             }
         })
+        // console.log(addTitle);
     }
 
     const addEvent = () => {
-        props.passNote(note);
+        props.passNote(addTitle);
 
-        setNote({
+        setAddTitle({
             title: '',
             content: ''
-        });
+        })
+    }
+
+    const expandIt = ()=>{
+        setExpand(true);
+    }
+
+    const bToNormal = ()=>{
+        setExpand(false);
     }
 
     return (
         <>
             <div className={''}>
                 <form>
-                    <input className={''} type={'text'}
-                           name={'title'}
-                           value={note.title}
-                           onChange={inputEvent}
-                           placeholder={'Title'}
-                           autoComplete={'off'}
-                    />
-                    <textarea rows={''}
-                              column={''}
+                    {expand ?
+                        < input type={'text'}
+                                placeholder={'Title'}
+                                name={'title'}
+                                value={addTitle.title}
+                                autoComplete={'off'}
+                                onChange={inputEvent}
+                        />
+                        : null}
+
+                    <textarea rows={''} column={''}
+                              placeholder={'Write a Note'}
                               name={'content'}
-                              value={note.content}
+                              value={addTitle.content}
                               onChange={inputEvent}
-                              placeholder={'Write a Note...'}
-                              autoComplete={'off'}
+                              onClick={expandIt}
+                              onDoubleClick={bToNormal}
                     />
 
-
-                <Button onChange={addEvent}>
+                    {expand?
+                        <Button onClick={addEvent}>
                         <AddIcon className={''}/>
                     </Button>
+                    :null}
                 </form>
             </div>
         </>
     )
-};
+}
 
 export default CreateNote;
