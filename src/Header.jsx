@@ -5,8 +5,8 @@ const Header= () => {
     return (
         <>
            <div className={''}>
-               <img src={logo}  alt={'logo'} width={'70'} height={'50'}/>
-               <h2>MY NOTE</h2>
+               <img src={logo}  alt={'logo'} width={'80'} height={'55'}/>
+               <h2>Note</h2>
            </div>
         </>
     )
