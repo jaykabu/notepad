@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.deletebtn {
+  border_redius : 20px;
+  size:14px;
+}
